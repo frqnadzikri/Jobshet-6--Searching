@@ -1,55 +1,54 @@
-public class MahasiswaBerprestasi14 {
-    Mahasiswa14[] listMhs = new Mahasiswa14[5];
-    int idx = 0;
+class MahasiswaBerprestasi14 {
+    Mahasiswa14[] listMhs;
+    int jumMhs;
 
-    // tambah data
-    void tambah(Mahasiswa14 mhs) {
-        if (idx < listMhs.length) {
-            listMhs[idx] = mhs;
-            idx++;
-        } else {
-            System.out.println("Data penuh!");
+    MahasiswaBerprestasi14(int n) {
+        listMhs = new Mahasiswa14[n];
+        jumMhs = 0;
+    }
+
+    void tambah(Mahasiswa14 m) {
+        listMhs[jumMhs] = m;
+        jumMhs++;
+    }
+
+    void tampilData() {
+        System.out.println("\nData Mahasiswa:");
+        for (int i = 0; i < jumMhs; i++) {
+            System.out.println((i+1) + ". " + listMhs[i].nama + " - IPK: " + listMhs[i].ipk);
         }
     }
 
-    // tampil semua data
-    void tampil() {
-        for (Mahasiswa14 m : listMhs) {
-            m.tampilInformasi();
-            System.out.println("-------------------");
-        }
-    }
+    // ✅ Binary Search
+    int findBinarySearch(double cari, int left, int right) {
+        if (right >= left) {
+            int mid = (left + right) / 2;
 
-    // sequential search
-    int sequentialSearching(double cari) {
-        int posisi = -1;
-        for (int j = 0; j < listMhs.length; j++) {
-            if (listMhs[j].ipk == cari) {
-                posisi = j;
-                break;
+            if (cari == listMhs[mid].ipk) {
+                return mid;
+            } else if (listMhs[mid].ipk > cari) {
+                return findBinarySearch(cari, left, mid - 1);
+            } else {
+                return findBinarySearch(cari, mid + 1, right);
             }
         }
-        return posisi;
+        return -1;
     }
 
-    // tampil posisi
-    void tampilPosisi(double x, int pos) {
-        if (pos != -1) {
-            System.out.println("Data dengan IPK " + x + " ditemukan pada index " + pos);
+    // ✅ WAJIB ADA (biar tidak error)
+    void tampilPosisi(double cari, int posisi) {
+        if (posisi != -1) {
+            System.out.println("Data ditemukan di indeks: " + posisi);
         } else {
             System.out.println("Data tidak ditemukan");
         }
     }
 
-    // tampil data hasil pencarian
-    void tampilDataSearch(double x, int pos) {
-        if (pos != -1) {
-            System.out.println("NIM   : " + listMhs[pos].nim);
-            System.out.println("Nama  : " + listMhs[pos].nama);
-            System.out.println("Kelas : " + listMhs[pos].kelas);
-            System.out.println("IPK   : " + x);
-        } else {
-            System.out.println("Data mahasiswa dengan IPK " + x + " tidak ditemukan");
+    // ✅ WAJIB ADA (biar tidak error)
+    void tampilDataSearch(double cari, int posisi) {
+        if (posisi != -1) {
+            System.out.println("Nama: " + listMhs[posisi].nama);
+            System.out.println("IPK : " + listMhs[posisi].ipk);
         }
     }
 }
